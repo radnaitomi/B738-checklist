@@ -9,7 +9,7 @@
             /* Base Font Scale Factor (Default is +50%, so 1.5 multiplier) */
             --font-scale: 1.5;
 
-            /* Night Mode Colors (Default) */
+            /* Night / Dark Mode Colors (Default) */
             --bg-color: #121212;
             --card-bg: #1e1e1e;
             --text-color: #e0e0e0;
@@ -466,6 +466,8 @@
                     { label: "Packs", value: "AUTO/HIGH" },
                     { label: "Isolation valve", value: "OPEN" },
                     { label: "Eng / APU bleed", value: "ON" },
+                    { label: "Ground power", value: "DISCONNECT" },
+                    { label: "Chocks", value: "REMOVED" },
                     { label: "Doors", value: "CLOSED" }
                 ]
             },
@@ -502,7 +504,8 @@
                     { modeFilter: "seto", label: "Left & Right Pack switches", value: "OFF", isSeto: true },
                     { modeFilter: "seto", label: "Engine 2 start switch", value: "GND", isSeto: true },
                     { modeFilter: "seto", label: "Engine 2 start lever", value: "IDLE AT 25% N2", isSeto: true },
-                    { modeFilter: "seto", label: "Engine 2 start switch (at 56% N2)", value: "OFF", isSeto: true }
+                    { modeFilter: "seto", label: "Engine 2 start switch (at 56% N2)", value: "OFF", isSeto: true },
+                    { modeFilter: "seto", label: "Clock", value: "START", isSeto: true }
                 ]
             },
             {
@@ -525,8 +528,7 @@
                     { modeFilter: "normal", label: "Flight controls", value: "CHECK" },
                     { modeFilter: "normal", label: "Recall", value: "CHECK" },
                     { modeFilter: "normal", label: "Request Taxi Clearance", value: "OBTAINED" },
-                    { modeFilter: "normal", label: "Taxi lights", value: "ON" },
-                    { modeFilter: "normal", label: "RWY turnoff lights", value: "AS REQUIRED" },
+                    { modeFilter: "normal", label: "Taxi / RWY turnoff lights", value: "ON" },
 
                     // SETO items
                     { modeFilter: "seto", label: "Generator 2", value: "ON", isSeto: true },
@@ -539,11 +541,12 @@
                     { modeFilter: "seto", label: "Engine 2 start switch", value: "CONT", isSeto: true },
                     { modeFilter: "seto", label: "Engine 2 start lever", value: "CHECK IDLE", isSeto: true },
                     { modeFilter: "seto", label: "Flaps", value: "SET FOR T/O", isSeto: true },
+                    { modeFilter: "seto", label: "Elevator trim", value: "SET FOR T/O", isSeto: true },
                     { modeFilter: "seto", label: "Flight controls", value: "CHECK", isSeto: true },
                     { modeFilter: "seto", label: "Recall", value: "CHECK (HYD/AIR/DUAL BLEED EXPECTED)", isSeto: true },
                     { modeFilter: "seto", label: "Master caution", value: "CANCEL", isSeto: true },
                     { modeFilter: "seto", label: "Taxi Clearance", value: "OBTAINED", isSeto: true },
-                    { modeFilter: "seto", label: "Taxi lights", value: "ON", isSeto: true },
+                    { modeFilter: "seto", label: "Taxi / RWY turnoff lights", value: "ON", isSeto: true },
                     { modeFilter: "seto", label: "Max SETO N1 on apron", value: "45% MAX", isSeto: true }
                 ]
             },
@@ -596,8 +599,8 @@
                     { label: "Auto-brake", value: "OFF" },
                     { label: "Engine start switches", value: "OFF" },
                     { label: "Gear lever", value: "OFF" },
-                    { label: "Taxi lights", value: "OFF" },
-                    { label: "RWY turn-off lights", value: "OFF" }
+                    { themeFilter: "day", label: "Landing lights", value: "OFF" },
+                    { label: "Taxi / RWY turnoff lights", value: "OFF" }
                 ]
             },
             {
@@ -611,7 +614,7 @@
                     { isSubHeader: true, label: "Below 10'000 ft" },
                     { label: "Speed", value: "MAX 250 KIAS" },
                     { isSubHeader: true, label: "Passing 10'000 ft" },
-                    { label: "Landing lights", value: "OFF" },
+                    { themeFilter: "dark", label: "Landing lights", value: "OFF" },
                     { label: "Fasten seat belts", value: "OFF" },
                     { label: "Center fuel pumps", value: "AS REQUIRED" },
                     { isSubHeader: true, label: "Cruise" },
@@ -642,7 +645,7 @@
                     { label: "Altimeter", value: "RESET TO LOCAL" },
                     { isSubHeader: true, label: "Below 10'000 ft" },
                     { label: "Speed", value: "MAX 250 KIAS" },
-                    { label: "Landing lights", value: "ON" },
+                    { themeFilter: "dark", label: "Landing lights", value: "ON" },
                     { label: "Passenger signs", value: "ON" }
                 ]
             },
@@ -656,6 +659,8 @@
                     { label: "Localizer course", value: "CHECK" },
                     { label: "APP", value: "ARM" },
                     { label: "Glideslope alive", value: "GEAR DOWN" },
+                    { themeFilter: "day", label: "Landing lights", value: "ON" },
+                    { label: "Taxi / RWY turnoff lights", value: "ON" },
                     { label: "Flaps", value: "15" },
                     { label: "Speed brake", value: "ARM" },
                     { label: "2nd autopilot", value: "ARM" },
@@ -669,7 +674,6 @@
                 mode: "both",
                 items: [
                     { label: "Go-around altitude", value: "SET" },
-                    { label: "RWY turn-off lights", value: "ON" },
                     { label: "Landing gear", value: "CHECK DOWN" },
                     { label: "Autopilot", value: "AS REQUIRED" },
                     { label: "Auto-thrust", value: "AS REQUIRED" }
@@ -698,16 +702,15 @@
                     { label: "Speed brake", value: "DOWN" },
                     { label: "Landing lights", value: "OFF" },
                     { label: "Position lights", value: "STEADY" },
-                    { label: "Taxi lights", value: "ON" },
+                    { label: "Taxi / RWY turnoff lights", value: "ON" },
                     { label: "Anti ice", value: "AS REQUIRED" },
                     { label: "APU", value: "START" },
                     { label: "Probe heat", value: "OFF" },
                     { label: "Engine start switches", value: "OFF" },
                     { label: "Auto-brake", value: "OFF" },
                     { isSubHeader: true, label: "Taxi To Gate" },
-                    { label: "RWY turnoff lights", value: "OFF" },
                     { label: "APU gen", value: "ON" },
-                    { label: "Taxi lights", value: "OFF" }
+                    { label: "Taxi / RWY turnoff lights", value: "OFF" }
                 ]
             },
             {
@@ -805,6 +808,7 @@
         function renderChecklist() {
             const container = document.getElementById('checklist-container');
             const navBar = document.getElementById('section-nav-bar');
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
             
             container.innerHTML = '';
             navBar.innerHTML = '';
@@ -815,8 +819,9 @@
                 }
 
                 const filteredItems = sec.items.filter(item => {
-                    if (!item.modeFilter) return true;
-                    return item.modeFilter === currentMode;
+                    if (item.modeFilter && item.modeFilter !== currentMode) return false;
+                    if (item.themeFilter && item.themeFilter !== currentTheme) return false;
+                    return true;
                 });
 
                 if (filteredItems.length === 0) return;
@@ -856,7 +861,7 @@
                         sub.textContent = item.label;
                         ul.appendChild(sub);
                     } else {
-                        const itemKey = `${currentMode}_${secIdx}_${itemIdx}`;
+                        const itemKey = `${currentTheme}_${currentMode}_${secIdx}_${itemIdx}`;
                         const li = document.createElement('li');
                         li.className = 'item-row';
                         li.id = itemKey;
@@ -928,10 +933,12 @@
             document.documentElement.setAttribute('data-theme', newTheme);
             themeBtn.textContent = newTheme === 'day' ? '☀️' : '🌙';
             localStorage.setItem('b737_theme', newTheme);
+            renderChecklist();
         };
 
         function saveCheckedState() {
-            const checkedStorageKey = `b737_checked_${currentMode}`;
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const checkedStorageKey = `b737_checked_${currentTheme}_${currentMode}`;
             const checkedIds = [];
             document.querySelectorAll('.item-row.checked').forEach(item => {
                 checkedIds.push(item.id);
@@ -940,7 +947,8 @@
         }
 
         function loadCheckedState() {
-            const checkedStorageKey = `b737_checked_${currentMode}`;
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const checkedStorageKey = `b737_checked_${currentTheme}_${currentMode}`;
             const savedItems = JSON.parse(localStorage.getItem(checkedStorageKey) || '[]');
             savedItems.forEach(id => {
                 const el = document.getElementById(id);
