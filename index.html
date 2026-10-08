@@ -99,11 +99,11 @@
         .timers-group {
             display: flex;
             align-items: center;
-            gap: 12px; /* Added clear spacing between timer buttons */
+            gap: 12px;
             flex-shrink: 0;
         }
 
-        /* Enhanced Interactive Timer Fields (Higher and twice as wide) */
+        /* Enhanced Interactive Timer Fields */
         .timer-btn {
             background: var(--timer-bg);
             border: 1.5px solid var(--timer-border);
@@ -111,7 +111,7 @@
             font-family: "Courier New", Courier, monospace, sans-serif;
             font-size: calc(0.95rem * var(--font-scale));
             font-weight: 800;
-            padding: 8px 24px; /* Increased padding: higher and twice as wide */
+            padding: 8px 24px;
             min-width: 130px;
             justify-content: center;
             border-radius: 6px;
@@ -384,22 +384,20 @@
         <header class="navbar">
             <h1 id="nav-title">B737-800</h1>
             
-            <!-- Dual Interactive Timers (Bigger, higher, twice as wide, spaced apart) -->
+            <!-- Dual Interactive Timers -->
             <div class="timers-group">
-                <button class="timer-btn" id="timer-btn-1" onclick="handleTimerClick(1)" title="Timer 1 - 1st click: Start | 2nd: Stop | 3rd: Reset">
+                <button class="timer-btn" id="timer-btn-1" onclick="handleTimerClick(1)" title="Timer 1">
                     ⏱️ <span id="timer-display-1">00:00</span>
                 </button>
-                <button class="timer-btn" id="timer-btn-2" onclick="handleTimerClick(2)" title="Timer 2 - 1st click: Start | 2nd: Stop | 3rd: Reset">
+                <button class="timer-btn" id="timer-btn-2" onclick="handleTimerClick(2)" title="Timer 2">
                     ⏱️ <span id="timer-display-2">00:00</span>
                 </button>
             </div>
 
             <div class="nav-controls">
-                <!-- Mode Toggle Switch -->
                 <button class="icon-btn mode-btn active-mode" id="mode-normal-btn" onclick="setMode('normal')">NORMAL</button>
                 <button class="icon-btn mode-btn" id="mode-seto-btn" onclick="setMode('seto')">SETO</button>
                 
-                <!-- Font Resizing Controls -->
                 <div class="font-controls" title="Font Size Controls">
                     <button class="icon-btn" onclick="changeFontSize(-0.1)" title="Decrease font size">A-</button>
                     <button class="icon-btn" onclick="resetFontSize()" title="Reset font size to default (+50%)">A</button>
@@ -410,9 +408,8 @@
                 <button class="icon-btn" id="global-reset" title="Reset Current Checklist">↺ Reset</button>
             </div>
         </header>
-        <!-- Multi-line Quick Section Navigation Bar -->
         <nav class="section-nav-bar" id="section-nav-bar">
-            <!-- Dynamically populated with short labels -->
+            <!-- Dynamically populated -->
         </nav>
     </div>
 
@@ -421,14 +418,10 @@
     </main>
 
     <script>
-        // Mode State: 'normal' or 'seto'
         let currentMode = 'normal';
-
-        // Font Scale State (Default: +50% = 1.5 multiplier)
         const DEFAULT_FONT_SCALE = 1.5;
         let fontScale = DEFAULT_FONT_SCALE;
 
-        // Dual Timer States & Instances
         const timers = {
             1: { state: 0, seconds: 0, interval: null },
             2: { state: 0, seconds: 0, interval: null }
@@ -453,10 +446,10 @@
                     { label: "Request Flight-Plan Clearance", value: "COMPLETED" },
                     { label: "Transponder", value: "SET" },
                     { label: "FMC", value: "SET" },
-                    { label: "APU", value: "START" },
                     { label: "MCP V2", value: "SET" },
                     { label: "MCP HDG / takeoff RWY", value: "SET" },
                     { label: "MCP initial ALT", value: "SET" },
+                    { label: "APU", value: "START" },
                     { label: "Yaw damper", value: "ON" },
                     { label: "Window heat", value: "ON" },
                     { label: "Flight altitude", value: "SET" },
@@ -502,6 +495,7 @@
                     { modeFilter: "normal", label: "Packs", value: "OFF" },
                     { modeFilter: "normal", label: "Engine start switch", value: "GND" },
                     { modeFilter: "normal", label: "Engine start lever", value: "IDLE AT 25% N2" },
+                    { modeFilter: "normal", label: "Clock", value: "START" },
 
                     // SETO items
                     { modeFilter: "seto", label: "Engine display", value: "SELECT", isSeto: true },
@@ -561,6 +555,7 @@
                     { modeFilter: "seto", label: "Engine 1 start switch", value: "GND", isSeto: true },
                     { modeFilter: "seto", label: "Engine 1 start lever", value: "IDLE AT 25% N2", isSeto: true },
                     { modeFilter: "seto", label: "Engine 1 start switch (at 56% N2)", value: "OFF", isSeto: true },
+                    { modeFilter: "seto", label: "Clock", value: "START", isSeto: true },
                     { modeFilter: "seto", label: "Generator 1", value: "ON", isSeto: true },
                     { modeFilter: "seto", label: "Wing & Engine 1 anti-ice", value: "AS REQUIRED", isSeto: true },
                     { modeFilter: "seto", label: "Left Pack switch", value: "AUTO", isSeto: true },
@@ -587,10 +582,9 @@
                     { label: "Request Take-Off Clearance", value: "OBTAINED" },
                     { label: "Landing lights", value: "ON" },
                     { label: "Strobe light", value: "ON" },
-                    { label: "Taxi lights", value: "OFF" },
                     { label: "Transponder", value: "TA/RA" },
                     { label: "TFC", value: "PUSH ON" },
-                    { label: "Clock", value: "START" }
+                    { label: "Weather Radar", value: "ON" }
                 ]
             },
             {
@@ -602,6 +596,7 @@
                     { label: "Auto-brake", value: "OFF" },
                     { label: "Engine start switches", value: "OFF" },
                     { label: "Gear lever", value: "OFF" },
+                    { label: "Taxi lights", value: "OFF" },
                     { label: "RWY turn-off lights", value: "OFF" }
                 ]
             },
@@ -689,6 +684,7 @@
                     { label: "Autopilot", value: "OFF" },
                     { label: "Autothrust", value: "OFF" },
                     { label: "At 60 kts", value: "REV THRUST TO IDLE" },
+                    { label: "Clock", value: "START" },
                     { label: "At 30 kts", value: "AUTO-BRAKE DISENGAGE" }
                 ]
             },
@@ -750,7 +746,6 @@
             }
         ];
 
-        // Font Dynamic Control Functions
         function applyFontScale() {
             document.documentElement.style.setProperty('--font-scale', fontScale);
             localStorage.setItem('b737_font_scale', fontScale);
@@ -767,13 +762,11 @@
             applyFontScale();
         }
 
-        // Dual Timer Click Handler
         function handleTimerClick(id) {
             const t = timers[id];
             const btn = document.getElementById(`timer-btn-${id}`);
 
             if (t.state === 0) {
-                // Click 1: Start
                 t.state = 1;
                 btn.classList.add('running');
                 btn.classList.remove('stopped');
@@ -782,13 +775,11 @@
                     updateTimerDisplay(id);
                 }, 1000);
             } else if (t.state === 1) {
-                // Click 2: Stop / Pause
                 t.state = 2;
                 clearInterval(t.interval);
                 btn.classList.remove('running');
                 btn.classList.add('stopped');
             } else if (t.state === 2) {
-                // Click 3: Reset
                 t.state = 0;
                 t.seconds = 0;
                 btn.classList.remove('stopped', 'running');
@@ -811,7 +802,6 @@
             }
         }
 
-        // Render Checklist and Navigation Bar based on Mode
         function renderChecklist() {
             const container = document.getElementById('checklist-container');
             const navBar = document.getElementById('section-nav-bar');
@@ -893,7 +883,6 @@
             setTimeout(adjustBodyPadding, 50);
         }
 
-        // Switch Checklist Mode (NORMAL vs SETO)
         function setMode(mode) {
             currentMode = mode;
             
@@ -960,14 +949,12 @@
         }
 
         function loadInitialConfig() {
-            // Restore theme
             const savedTheme = localStorage.getItem('b737_theme');
             if (savedTheme) {
                 document.documentElement.setAttribute('data-theme', savedTheme);
                 themeBtn.textContent = savedTheme === 'day' ? '☀️' : '🌙';
             }
 
-            // Restore font scale
             const savedFontScale = parseFloat(localStorage.getItem('b737_font_scale'));
             if (!isNaN(savedFontScale)) {
                 fontScale = savedFontScale;
@@ -976,14 +963,12 @@
             }
             applyFontScale();
 
-            // Restore mode
             const savedMode = localStorage.getItem('b737_mode') || 'normal';
             setMode(savedMode);
         }
 
         window.addEventListener('resize', adjustBodyPadding);
 
-        // Initial Load
         loadInitialConfig();
     </script>
 </body>
