@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Boeing 737-800 Normal Checklist</title>
+    <style>
+        :root {
+            /* Night Mode Colors (Default) */
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-color: #00e676;
+            --header-bg: #1a237e;
+            --header-text: #ffffff;
+            --border-color: #333333;
+            --checked-bg: rgba(0, 230, 118, 0.15);
+            --checked-text: #00e676;
+            --btn-bg: #2c2c2c;
+            --btn-text: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        [data-theme="day"] {
+            /* Day Mode Colors */
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --text-muted: #666666;
+            --accent-color: #2e7d32;
+            --header-bg: #1565c0;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --checked-bg: rgba(46, 125, 50, 0.12);
+            --checked-text: #2e7d32;
+            --btn-bg: #e0e0e0;
+            --btn-text: #212121;
+            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-top: 70px;
+            padding-bottom: 40px;
+        }
+
+        /* Top Sticky Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: var(--header-text);
+            font-size: 1.2rem;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:active {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 12px;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .section-header {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: var(--text-color);
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .section-reset-btn {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* Item Rows */
+        .item-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .item-row {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .item-row:last-child {
+            border-bottom: none;
+        }
+
+        .item-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-muted);
+            border-radius: 4px;
+            margin-right: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .item-content {
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 0.95rem;
+            gap: 12px;
+        }
+
+        .item-label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .item-value {
+            font-weight: 700;
+            color: var(--accent-color);
+            text-align: right;
+            text-transform: uppercase;
+        }
+
+        /* Checked State */
+        .item-row.checked {
+            background-color: var(--checked-bg);
+        }
+
+        .item-row.checked .item-checkbox {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .item-row.checked .item-checkbox::after {
+            content: '✓';
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .item-row.checked .item-label,
+        .item-row.checked .item-value {
+            opacity: 0.7;
+        }
+
+        /* Sub-headings within sections (e.g. "Below 10'000 ft") */
+        .sub-header {
+            padding: 8px 16px;
+            background-color: rgba(255, 255, 255, 0.02);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <h1>B737-800 Normal</h1>
+        <div class="nav-controls">
+            <button class="icon-btn" id="theme-toggle" title="Toggle Day/Night View">🌙</button>
+            <button class="icon-btn" id="global-reset" title="Reset All Items">↺ All</button>
+        </div>
+    </header>
+
+    <main class="container" id="checklist-container">
+        <!-- Section Cards dynamically created or pre-rendered -->
+    </main>
+
+    <script>
+        const checklistData = [
+            {
+                section: "PRE FLIGHT",
+                items: [
+                    { label: "Parking brake", value: "SET" },
+                    { label: "Battery", value: "GUARD CLOSED" },
+                    { label: "Standby power", value: "GUARD CLOSED" },
+                    { label: "GND pwr avail", value: "GND PWR SWITCH ON" },
+                    { label: "Lights test", value: "PERFORMED" },
+                    { label: "Oxygen & mask", value: "CHECKED" },
+                    { label: "Fire warn test", value: "PERFORMED" },
+                    { label: "APU", value: "START" },
+                    { label: "APU gen", value: "ON" },
+                    { label: "Position lights", value: "STEADY" },
+                    { label: "Logo light", value: "AS REQUIRED" },
+                    { label: "Emer exit lights", value: "GUARD CLOSED" },
+                    { label: "Passenger signs", value: "ON" },
+                    { label: "Packs", value: "AUTO/HIGH" },
+                    { label: "Isolation valve", value: "OPEN" },
+                    { label: "Eng / APU bleed", value: "ON" },
+                    { label: "IRS mode selectors", value: "OFF > NAV" },
+                    { label: "FMC", value: "SET" },
+                    { label: "Request Flight-Plan Clearance", value: "COMPLETED" },
+                    { label: "Transponder", value: "SET" },
+                    { label: "MCP V2", value: "SET" },
+                    { label: "MCP HDG / takeoff RWY", value: "SET" },
+                    { label: "MCP initial ALT", value: "SET" },
+                    { label: "Yaw damper", value: "ON" },
+                    { label: "Window heat", value: "ON" },
+                    { label: "Flight altitude", value: "SET" },
+                    { label: "Landing altitude", value: "SET" },
+                    { label: "Flight directors", value: "ON" },
+                    { label: "LNAV", value: "AS REQUIRED" },
+                    { label: "VNAV", value: "AS REQUIRED" },
+                    { label: "Minimums ref", value: "BARO or RADIO" },
+                    { label: "Minimums", value: "SET" },
+                    { label: "Altimeter ref", value: "IN or HPA" },
+                    { label: "Altimeter", value: "SET" },
+                    { label: "Auto brake", value: "RTO" },
+                    { label: "Com radios", value: "SET" },
+                    { label: "Doors", value: "CLOSED" }
+                ]
+            },
+            {
+                section: "BEFORE START",
+                items: [
+                    { label: "Request Pushback & Startup Clearance", value: "OBTAINED" },
+                    { label: "Autopilot disengage bar", value: "UP" },
+                    { label: "Autothrottle", value: "ARM" },
+                    { label: "Fuel pumps", value: "ON" },
+                    { label: "Hydraulic pumps", value: "ON" },
+                    { label: "Anti collision light", value: "ON" },
+                    { label: "Ground equipment", value: "REMOVED" },
+                    { label: "Engine area", value: "CLEAR" }
+                ]
+            },
+            {
+                section: "ENGINE START",
+                items: [
+                    { label: "Engine display", value: "SELECT" },
+                    { label: "Packs", value: "OFF" },
+                    { label: "Engine start switch", value: "GND" },
+                    { label: "Engine start lever", value: "IDLE AT 25% N2" }
+                ]
+            },
+            {
+                section: "BEFORE TAXI",
+                items: [
+                    { label: "Generators 1 & 2", value: "ON" },
+                    { label: "Probe heat", value: "ON" },
+                    { label: "Wing anti ice", value: "AS REQUIRED" },
+                    { label: "Engine anti ice", value: "AS REQUIRED" },
+                    { label: "Packs", value: "AUTO" },
+                    { label: "Isolation valve", value: "AUTO" },
+                    { label: "APU bleed", value: "OFF" },
+                    { label: "APU", value: "OFF" },
+                    { label: "Engine start switches", value: "CONT" },
+                    { label: "Flaps", value: "SET FOR T/O" },
+                    { label: "Elevator trim", value: "SET FOR T/O" },
+                    { label: "Flight controls", value: "CHECK" },
+                    { label: "Recall", value: "CHECK" },
+                    { label: "Request Taxi Clearance", value: "OBTAINED" },
+                    { label: "Taxi lights", value: "ON" },
+                    { label: "RWY turnoff lights", value: "AS REQUIRED" }
+                ]
+            },
+            {
+                section: "BEFORE TAKE-OFF",
+                items: [
+                    { label: "Fuel flow", value: "RESET, THEN RATE" },
+                    { label: "Center fuel pumps", value: "AS REQUIRED" },
+                    { label: "Anti-ice", value: "AS REQUIRED" },
+                    { label: "Flight instruments", value: "CHECK" },
+                    { label: "Engine instruments", value: "CHECK" },
+                    { label: "Take-off data", value: "V1, VR, V2 CHECK" },
+                    { label: "Request Take-Off Clearance", value: "OBTAINED" },
+                    { label: "Landing lights", value: "ON" },
+                    { label: "Strobe light", value: "ON" },
+                    { label: "Taxi lights", value: "OFF" },
+                    { label: "Transponder", value: "TA/RA" },
+                    { label: "TFC", value: "PUSH ON" },
+                    { label: "Clock", value: "START" }
+                ]
+            },
+            {
+                section: "AFTER TAKE-OFF",
+                items: [
+                    { label: "Positive rate of climb", value: "GEAR UP" },
+                    { label: "Auto-brake", value: "OFF" },
+                    { label: "Engine start switches", value: "OFF" },
+                    { label: "Gear lever", value: "OFF" },
+                    { label: "RWY turn-off lights", value: "OFF" }
+                ]
+            },
+            {
+                section: "CLIMB AND CRUISE",
+                items: [
+                    { label: "CMD A or B", value: "ENGAGE" },
+                    { isSubHeader: true, label: "Passing Transition Altitude" },
+                    { label: "Altimeter", value: "SET STD" },
+                    { isSubHeader: true, label: "Below 10'000 ft" },
+                    { label: "Speed", value: "MAX 250 KIAS" },
+                    { isSubHeader: true, label: "Passing 10'000 ft" },
+                    { label: "Landing lights", value: "OFF" },
+                    { label: "Fasten seat belts", value: "OFF" },
+                    { label: "Center fuel pumps", value: "AS REQUIRED" },
+                    { isSubHeader: true, label: "Cruise" },
+                    { label: "Engine & instruments", value: "MONITOR" },
+                    { label: "Fuel quantity", value: "CHECK" }
+                ]
+            },
+            {
+                section: "DESCENT",
+                items: [
+                    { isSubHeader: true, label: "Before Top Of Descent" },
+                    { label: "ATIS / airport info", value: "CHECK" },
+                    { label: "Altimeter", value: "CHECK" },
+                    { label: "Radios", value: "SET" },
+                    { label: "Reset MCP altitude", value: "CHECK" },
+                    { label: "VREF", value: "SET" },
+                    { label: "Localizer freq", value: "SET" },
+                    { label: "ILS LOC course", value: "SET" },
+                    { isSubHeader: true, label: "Descent" },
+                    { label: "Anti-ice", value: "AS REQUIRED" },
+                    { label: "Landing altitude", value: "CHECK" },
+                    { label: "Recall", value: "CHECK" },
+                    { label: "Radio alt / baro min", value: "SET" },
+                    { label: "Auto brake", value: "AS REQUIRED" },
+                    { isSubHeader: true, label: "Passing Transition Altitude" },
+                    { label: "Altimeter", value: "RESET TO LOCAL" },
+                    { isSubHeader: true, label: "Below 10'000 ft" },
+                    { label: "Speed", value: "MAX 250 KIAS" },
+                    { label: "Landing lights", value: "ON" },
+                    { label: "Passenger signs", value: "ON" }
+                ]
+            },
+            {
+                section: "APPROACH",
+                items: [
+                    { label: "Altimeter", value: "CHECK" },
+                    { label: "Localizer frequency", value: "CHECK" },
+                    { label: "Localizer course", value: "CHECK" },
+                    { label: "APP", value: "ARM" },
+                    { label: "Glideslope alive", value: "GEAR DOWN" },
+                    { label: "Flaps", value: "15" },
+                    { label: "Speed brake", value: "ARM" },
+                    { label: "2nd autopilot", value: "ARM" },
+                    { label: "Engine start switches", value: "CONT" },
+                    { label: "Landing flaps", value: "SET" }
+                ]
+            },
+            {
+                section: "LANDING",
+                items: [
+                    { label: "Go-around altitude", value: "SET" },
+                    { label: "RWY turn-off lights", value: "ON" },
+                    { label: "Landing gear", value: "CHECK DOWN" },
+                    { label: "Autopilot", value: "AS REQUIRED" },
+                    { label: "Auto-thrust", value: "AS REQUIRED" }
+                ]
+            },
+            {
+                section: "LANDING ROLL",
+                items: [
+                    { label: "Thrust reverse", value: "ENGAGE" },
+                    { label: "Autopilot", value: "OFF" },
+                    { label: "Autothrust", value: "OFF" },
+                    { label: "At 60 kts", value: "REV THRUST TO IDLE" },
+                    { label: "At 30 kts", value: "AUTO-BRAKE DISENGAGE" }
+                ]
+            },
+            {
+                section: "AFTER LANDING",
+                items: [
+                    { label: "Transponder", value: "AS REQUIRED" },
+                    { label: "Flaps", value: "RETRACT" },
+                    { label: "Speed brake", value: "DOWN" },
+                    { label: "Landing lights", value: "OFF" },
+                    { label: "Position lights", value: "STEADY" },
+                    { label: "Taxi lights", value: "ON" },
+                    { label: "Anti ice", value: "AS REQUIRED" },
+                    { label: "APU", value: "START" },
+                    { label: "Probe heat", value: "OFF" },
+                    { label: "Engine start switches", value: "OFF" },
+                    { label: "Auto-brake", value: "OFF" },
+                    { isSubHeader: true, label: "Taxi To Gate" },
+                    { label: "RWY turnoff lights", value: "OFF" },
+                    { label: "APU gen", value: "ON" },
+                    { label: "Taxi lights", value: "OFF" }
+                ]
+            },
+            {
+                section: "PARKING / SHUTDOWN",
+                items: [
+                    { label: "Parking brakes", value: "SET" },
+                    { label: "Engine start levers", value: "CUTOFF" },
+                    { label: "Ground operations", value: "AS REQUIRED" },
+                    { label: "Passenger signs", value: "OFF" },
+                    { label: "APU bleed air", value: "ON" },
+                    { label: "Anti collision light", value: "OFF" },
+                    { label: "Fuel pumps", value: "OFF" },
+                    { label: "Anti-ice", value: "OFF" },
+                    { label: "Hydraulic pumps", value: "OFF" },
+                    { label: "Isolation valve", value: "OPEN" },
+                    { label: "Flight director", value: "OFF" },
+                    { label: "GND power", value: "ESTABLISH" },
+                    { label: "Doors", value: "OPEN" }
+                ]
+            },
+            {
+                section: "SECURING AIRCRAFT",
+                items: [
+                    { label: "IRS mode selectors", value: "OFF" },
+                    { label: "APU", value: "OFF" },
+                    { label: "Emergency exit lights", value: "OFF" },
+                    { label: "Window heat", value: "OFF" },
+                    { label: "Packs", value: "OFF" },
+                    { label: "Standby power", value: "OFF" },
+                    { label: "Battery", value: "OFF" }
+                ]
+            }
+        ];
+
+        // Render HTML
+        const container = document.getElementById('checklist-container');
+
+        checklistData.forEach((sec, secIdx) => {
+            const card = document.createElement('div');
+            card.className = 'section-card';
+
+            const header = document.createElement('div');
+            header.className = 'section-header';
+            header.innerHTML = `
+                <h2 class="section-title">${sec.section}</h2>
+                <button class="section-reset-btn" onclick="resetSection(${secIdx})">Reset</button>
+            `;
+            card.appendChild(header);
+
+            const ul = document.createElement('ul');
+            ul.className = 'item-list';
+
+            sec.items.forEach((item, itemIdx) => {
+                if (item.isSubHeader) {
+                    const sub = document.createElement('li');
+                    sub.className = 'sub-header';
+                    sub.textContent = item.label;
+                    ul.appendChild(sub);
+                } else {
+                    const li = document.createElement('li');
+                    li.className = 'item-row';
+                    li.id = `item-${secIdx}-${itemIdx}`;
+                    li.onclick = () => toggleItem(li);
+
+                    li.innerHTML = `
+                        <div class="item-checkbox"></div>
+                        <div class="item-content">
+                            <span class="item-label">${item.label}</span>
+                            <span class="item-value">${item.value}</span>
+                        </div>
+                    `;
+                    ul.appendChild(li);
+                }
+            });
+
+            card.appendChild(ul);
+            container.appendChild(card);
+        });
+
+        // Toggle Check Item
+        function toggleItem(element) {
+            element.classList.toggle('checked');
+            saveState();
+        }
+
+        // Reset Individual Section
+        function resetSection(secIdx) {
+            const items = document.querySelectorAll(`[id^="item-${secIdx}-"]`);
+            items.forEach(item => item.classList.remove('checked'));
+            saveState();
+        }
+
+        // Global Reset
+        document.getElementById('global-reset').onclick = () => {
+            if (confirm("Reset entire checklist?")) {
+                document.querySelectorAll('.item-row').forEach(item => item.classList.remove('checked'));
+                saveState();
+            }
+        };
+
+        // Day/Night Theme Toggle
+        const themeBtn = document.getElementById('theme-toggle');
+        themeBtn.onclick = () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'day' ? 'dark' : 'day';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeBtn.textContent = newTheme === 'day' ? '☀️' : '🌙';
+            localStorage.setItem('b737_theme', newTheme);
+        };
+
+        // Local Storage Persistence
+        function saveState() {
+            const checkedIds = [];
+            document.querySelectorAll('.item-row.checked').forEach(item => {
+                checkedIds.push(item.id);
+            });
+            localStorage.setItem('b737_checked_items', JSON.stringify(checkedIds));
+        }
+
+        function loadState() {
+            // Restore theme
+            const savedTheme = localStorage.getItem('b737_theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeBtn.textContent = savedTheme === 'day' ? '☀️' : '🌙';
+            }
+
+            // Restore checked items
+            const savedItems = JSON.parse(localStorage.getItem('b737_checked_items') || '[]');
+            savedItems.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('checked');
+            });
+        }
+
+        // Initial Load
+        loadState();
+    </script>
+</body>
+</html>
