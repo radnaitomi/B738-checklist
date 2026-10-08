@@ -6,6 +6,9 @@
     <title>Boeing 737-800 Interactive Checklist</title>
     <style>
         :root {
+            /* Base Font Scale Factor (Default is +50%, so 1.5 multiplier) */
+            --font-scale: 1.5;
+
             /* Night Mode Colors (Default) */
             --bg-color: #121212;
             --card-bg: #1e1e1e;
@@ -58,7 +61,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: background-color 0.3s ease, color 0.3s ease;
-            padding-top: 175px;
+            padding-top: 190px;
             padding-bottom: 40px;
         }
 
@@ -74,47 +77,49 @@
         }
 
         .navbar {
-            height: 54px;
+            padding: 8px 10px;
             color: var(--header-text);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 10px;
-            gap: 6px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .navbar h1 {
             margin: 0;
-            font-size: 0.85rem;
+            font-size: calc(0.85rem * var(--font-scale));
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             white-space: nowrap;
         }
 
-        /* Dual Timers Container */
+        /* Dual Timers Container with extra spacing */
         .timers-group {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 12px; /* Added clear spacing between timer buttons */
             flex-shrink: 0;
         }
 
-        /* Interactive Timer Field */
+        /* Enhanced Interactive Timer Fields (Higher and twice as wide) */
         .timer-btn {
             background: var(--timer-bg);
-            border: 1px solid var(--timer-border);
+            border: 1.5px solid var(--timer-border);
             color: #ffffff;
             font-family: "Courier New", Courier, monospace, sans-serif;
-            font-size: 0.85rem;
+            font-size: calc(0.95rem * var(--font-scale));
             font-weight: 800;
-            padding: 4px 6px;
-            border-radius: 5px;
+            padding: 8px 24px; /* Increased padding: higher and twice as wide */
+            min-width: 130px;
+            justify-content: center;
+            border-radius: 6px;
             cursor: pointer;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 6px;
             transition: all 0.2s ease;
             flex-shrink: 0;
         }
@@ -126,7 +131,7 @@
         .timer-btn.running {
             border-color: var(--timer-active);
             color: var(--timer-active);
-            box-shadow: 0 0 6px rgba(0, 230, 118, 0.4);
+            box-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
         }
 
         .timer-btn.stopped {
@@ -136,8 +141,19 @@
 
         .nav-controls {
             display: flex;
-            gap: 4px;
+            gap: 6px;
             align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Font Controls Group */
+        .font-controls {
+            display: flex;
+            gap: 2px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 2px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Multi-line Section Navigation Bar */
@@ -154,7 +170,7 @@
             background: rgba(0, 0, 0, 0.25);
             border: 1px solid rgba(255, 255, 255, 0.25);
             color: #ffffff;
-            font-size: 0.68rem;
+            font-size: calc(0.68rem * var(--font-scale));
             font-weight: 800;
             letter-spacing: 0.4px;
             text-transform: uppercase;
@@ -179,7 +195,7 @@
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--header-text);
-            font-size: 0.78rem;
+            font-size: calc(0.78rem * var(--font-scale));
             font-weight: 700;
             padding: 5px 8px;
             border-radius: 5px;
@@ -211,7 +227,7 @@
 
         /* Container */
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 12px;
         }
@@ -225,7 +241,7 @@
             box-shadow: var(--shadow);
             overflow: hidden;
             transition: background-color 0.3s ease, border-color 0.3s ease;
-            scroll-margin-top: 185px;
+            scroll-margin-top: 200px;
         }
 
         .section-header {
@@ -238,7 +254,7 @@
         }
 
         .section-title {
-            font-size: 1rem;
+            font-size: calc(1rem * var(--font-scale));
             font-weight: 800;
             letter-spacing: 0.8px;
             color: var(--text-color);
@@ -250,8 +266,8 @@
             background: var(--btn-bg);
             color: var(--btn-text);
             border: none;
-            padding: 4px 10px;
-            font-size: 0.75rem;
+            padding: 6px 12px;
+            font-size: calc(0.75rem * var(--font-scale));
             font-weight: 600;
             border-radius: 4px;
             cursor: pointer;
@@ -279,8 +295,8 @@
         }
 
         .item-checkbox {
-            width: 24px;
-            height: 24px;
+            width: calc(24px * var(--font-scale));
+            height: calc(24px * var(--font-scale));
             border: 2px solid var(--text-muted);
             border-radius: 4px;
             margin-right: 14px;
@@ -296,7 +312,7 @@
             flex-grow: 1;
             justify-content: space-between;
             align-items: baseline;
-            font-size: 0.95rem;
+            font-size: calc(0.95rem * var(--font-scale));
             gap: 12px;
         }
 
@@ -316,7 +332,7 @@
         .tag-seto {
             background-color: var(--seto-color);
             color: #ffffff;
-            font-size: 0.65rem;
+            font-size: calc(0.65rem * var(--font-scale));
             font-weight: 800;
             padding: 2px 6px;
             border-radius: 3px;
@@ -340,7 +356,7 @@
         .item-row.checked .item-checkbox::after {
             content: '✓';
             color: #ffffff;
-            font-size: 16px;
+            font-size: calc(16px * var(--font-scale));
             font-weight: bold;
         }
 
@@ -353,7 +369,7 @@
         .sub-header {
             padding: 8px 16px;
             background-color: rgba(255, 255, 255, 0.03);
-            font-size: 0.8rem;
+            font-size: calc(0.8rem * var(--font-scale));
             font-weight: 800;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -368,7 +384,7 @@
         <header class="navbar">
             <h1 id="nav-title">B737-800</h1>
             
-            <!-- Dual Interactive Timers -->
+            <!-- Dual Interactive Timers (Bigger, higher, twice as wide, spaced apart) -->
             <div class="timers-group">
                 <button class="timer-btn" id="timer-btn-1" onclick="handleTimerClick(1)" title="Timer 1 - 1st click: Start | 2nd: Stop | 3rd: Reset">
                     ⏱️ <span id="timer-display-1">00:00</span>
@@ -383,6 +399,13 @@
                 <button class="icon-btn mode-btn active-mode" id="mode-normal-btn" onclick="setMode('normal')">NORMAL</button>
                 <button class="icon-btn mode-btn" id="mode-seto-btn" onclick="setMode('seto')">SETO</button>
                 
+                <!-- Font Resizing Controls -->
+                <div class="font-controls" title="Font Size Controls">
+                    <button class="icon-btn" onclick="changeFontSize(-0.1)" title="Decrease font size">A-</button>
+                    <button class="icon-btn" onclick="resetFontSize()" title="Reset font size to default (+50%)">A</button>
+                    <button class="icon-btn" onclick="changeFontSize(0.1)" title="Increase font size">A+</button>
+                </div>
+
                 <button class="icon-btn" id="theme-toggle" title="Toggle Day/Night View">🌙</button>
                 <button class="icon-btn" id="global-reset" title="Reset Current Checklist">↺ Reset</button>
             </div>
@@ -401,6 +424,10 @@
         // Mode State: 'normal' or 'seto'
         let currentMode = 'normal';
 
+        // Font Scale State (Default: +50% = 1.5 multiplier)
+        const DEFAULT_FONT_SCALE = 1.5;
+        let fontScale = DEFAULT_FONT_SCALE;
+
         // Dual Timer States & Instances
         const timers = {
             1: { state: 0, seconds: 0, interval: null },
@@ -417,22 +444,16 @@
                     { label: "Battery", value: "GUARD CLOSED" },
                     { label: "Standby power", value: "GUARD CLOSED" },
                     { label: "GND pwr avail", value: "GND PWR SWITCH ON" },
-                    { label: "Lights test", value: "PERFORMED" },
-                    { label: "Oxygen & mask", value: "CHECKED" },
-                    { label: "Fire warn test", value: "PERFORMED" },
-                    { label: "APU", value: "START" },
-                    { label: "APU gen", value: "ON" },
                     { label: "Position lights", value: "STEADY" },
                     { label: "Logo light", value: "AS REQUIRED" },
                     { label: "Emer exit lights", value: "GUARD CLOSED" },
                     { label: "Passenger signs", value: "ON" },
-                    { label: "Packs", value: "AUTO/HIGH" },
-                    { label: "Isolation valve", value: "OPEN" },
-                    { label: "Eng / APU bleed", value: "ON" },
                     { label: "IRS mode selectors", value: "OFF > NAV" },
-                    { label: "FMC", value: "SET" },
+                    { label: "Com radios", value: "SET" },
                     { label: "Request Flight-Plan Clearance", value: "COMPLETED" },
                     { label: "Transponder", value: "SET" },
+                    { label: "FMC", value: "SET" },
+                    { label: "APU", value: "START" },
                     { label: "MCP V2", value: "SET" },
                     { label: "MCP HDG / takeoff RWY", value: "SET" },
                     { label: "MCP initial ALT", value: "SET" },
@@ -448,7 +469,10 @@
                     { label: "Altimeter ref", value: "IN or HPA" },
                     { label: "Altimeter", value: "SET" },
                     { label: "Auto brake", value: "RTO" },
-                    { label: "Com radios", value: "SET" },
+                    { label: "APU gen", value: "ON" },
+                    { label: "Packs", value: "AUTO/HIGH" },
+                    { label: "Isolation valve", value: "OPEN" },
+                    { label: "Eng / APU bleed", value: "ON" },
                     { label: "Doors", value: "CLOSED" }
                 ]
             },
@@ -726,7 +750,24 @@
             }
         ];
 
-        // Generic Dual Timer Click Handler
+        // Font Dynamic Control Functions
+        function applyFontScale() {
+            document.documentElement.style.setProperty('--font-scale', fontScale);
+            localStorage.setItem('b737_font_scale', fontScale);
+            adjustBodyPadding();
+        }
+
+        function changeFontSize(delta) {
+            fontScale = Math.max(0.8, Math.min(2.5, fontScale + delta));
+            applyFontScale();
+        }
+
+        function resetFontSize() {
+            fontScale = DEFAULT_FONT_SCALE;
+            applyFontScale();
+        }
+
+        // Dual Timer Click Handler
         function handleTimerClick(id) {
             const t = timers[id];
             const btn = document.getElementById(`timer-btn-${id}`);
@@ -779,12 +820,10 @@
             navBar.innerHTML = '';
 
             checklistData.forEach((sec, secIdx) => {
-                // Skip entire section if not applicable for current mode
                 if (sec.mode !== 'both' && sec.mode !== currentMode) {
                     return;
                 }
 
-                // Filter items for section
                 const filteredItems = sec.items.filter(item => {
                     if (!item.modeFilter) return true;
                     return item.modeFilter === currentMode;
@@ -794,7 +833,6 @@
 
                 const sectionId = `sec-${secIdx}`;
 
-                // Create Top Header Navigation Button with concise label
                 const navBtn = document.createElement('button');
                 navBtn.className = 'section-nav-btn';
                 navBtn.textContent = sec.shortLabel || sec.section;
@@ -806,7 +844,6 @@
                 };
                 navBar.appendChild(navBtn);
 
-                // Create Card
                 const card = document.createElement('div');
                 card.className = 'section-card';
                 card.id = sectionId;
@@ -860,7 +897,6 @@
         function setMode(mode) {
             currentMode = mode;
             
-            // Update UI buttons
             const normalBtn = document.getElementById('mode-normal-btn');
             const setoBtn = document.getElementById('mode-seto-btn');
 
@@ -876,13 +912,11 @@
             renderChecklist();
         }
 
-        // Toggle Check Item
         function toggleItem(element, itemKey) {
             element.classList.toggle('checked');
             saveCheckedState();
         }
 
-        // Reset Individual Section
         function resetSection(secIdx) {
             const card = document.getElementById(`sec-${secIdx}`);
             if (card) {
@@ -891,7 +925,6 @@
             }
         }
 
-        // Global Reset
         document.getElementById('global-reset').onclick = () => {
             if (confirm(`Reset all items in current (${currentMode.toUpperCase()}) checklist?`)) {
                 document.querySelectorAll('.item-row').forEach(item => item.classList.remove('checked'));
@@ -899,7 +932,6 @@
             }
         };
 
-        // Day/Night Theme Toggle
         const themeBtn = document.getElementById('theme-toggle');
         themeBtn.onclick = () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -909,7 +941,6 @@
             localStorage.setItem('b737_theme', newTheme);
         };
 
-        // Local Storage Persistence
         function saveCheckedState() {
             const checkedStorageKey = `b737_checked_${currentMode}`;
             const checkedIds = [];
@@ -935,6 +966,15 @@
                 document.documentElement.setAttribute('data-theme', savedTheme);
                 themeBtn.textContent = savedTheme === 'day' ? '☀️' : '🌙';
             }
+
+            // Restore font scale
+            const savedFontScale = parseFloat(localStorage.getItem('b737_font_scale'));
+            if (!isNaN(savedFontScale)) {
+                fontScale = savedFontScale;
+            } else {
+                fontScale = DEFAULT_FONT_SCALE;
+            }
+            applyFontScale();
 
             // Restore mode
             const savedMode = localStorage.getItem('b737_mode') || 'normal';
